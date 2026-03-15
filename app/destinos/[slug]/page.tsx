@@ -17,12 +17,30 @@ interface PageProps {
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const baseUrl = 'https://raizesglobaisdocs.com.br';
     // Try CMS first
     const dest = await getDestinationBySlug(params.slug);
     if (dest) {
+        const title = dest.seoTitle || `${dest.name} | Raízes Globais Docs`;
+        const description = dest.seoDescription || dest.shortDescription;
+        const imageUrl = dest.mainImage ? urlFor(dest.mainImage).width(1200).height(630).url() : undefined;
         return {
-            title: dest.seoTitle || `${dest.name} | Raízes Globais Docs`,
-            description: dest.seoDescription || dest.shortDescription,
+            title,
+            description,
+            openGraph: {
+                title,
+                description,
+                url: `${baseUrl}/destinos/${params.slug}`,
+                siteName: 'Raízes Globais Docs',
+                type: 'article',
+                ...(imageUrl && { images: [{ url: imageUrl, width: 1200, height: 630, alt: dest.name }] }),
+            },
+            twitter: {
+                card: 'summary_large_image',
+                title,
+                description,
+                ...(imageUrl && { images: [imageUrl] }),
+            },
         };
     }
 
@@ -33,6 +51,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
         title: `${country.name} | Raízes Globais Docs`,
         description: country.shortDescription,
+        openGraph: {
+            title: `${country.name} | Raízes Globais Docs`,
+            description: country.shortDescription,
+            url: `${baseUrl}/destinos/${params.slug}`,
+            siteName: 'Raízes Globais Docs',
+            type: 'article',
+            images: [{ url: country.imageUrl, width: 1200, height: 630, alt: country.name }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${country.name} | Raízes Globais Docs`,
+            description: country.shortDescription,
+            images: [country.imageUrl],
+        },
     };
 }
 
@@ -59,6 +91,41 @@ export default async function CountryPage({ params }: PageProps) {
         return (
             <>
                 <Navbar />
+                {/* Schema Markup: Article + BreadcrumbList */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@graph": [
+                                {
+                                    "@type": "Article",
+                                    "headline": dest.seoTitle || dest.name,
+                                    "description": dest.seoDescription || dest.shortDescription,
+                                    ...(dest.mainImage && { "image": urlFor(dest.mainImage).width(1200).height(630).url() }),
+                                    "author": { "@type": "Organization", "name": "Raízes Globais Docs" },
+                                    "publisher": {
+                                        "@type": "Organization",
+                                        "name": "Raízes Globais Docs",
+                                        "logo": { "@type": "ImageObject", "url": "https://raizesglobaisdocs.com.br/logo.png" },
+                                    },
+                                    "mainEntityOfPage": {
+                                        "@type": "WebPage",
+                                        "@id": `https://raizesglobaisdocs.com.br/destinos/${params.slug}`,
+                                    },
+                                },
+                                {
+                                    "@type": "BreadcrumbList",
+                                    "itemListElement": [
+                                        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://raizesglobaisdocs.com.br/" },
+                                        { "@type": "ListItem", "position": 2, "name": "Destinos", "item": "https://raizesglobaisdocs.com.br/destinos" },
+                                        { "@type": "ListItem", "position": 3, "name": dest.name },
+                                    ],
+                                },
+                            ],
+                        }),
+                    }}
+                />
                 <main className="flex-grow pt-24 bg-background">
                     <div className="container mx-auto px-6 md:px-12 py-12">
                         {/* Header */}

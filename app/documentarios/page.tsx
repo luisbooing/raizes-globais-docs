@@ -8,6 +8,18 @@ import { Play } from 'lucide-react';
 export const metadata: Metadata = {
     title: 'Documentários e Séries | Raízes Globais Docs',
     description: 'Assista todos os documentários narrados por IA sobre as paisagens naturais mais incríveis do planeta. Cinematografia em 4K.',
+    openGraph: {
+        title: 'Documentários e Séries | Raízes Globais Docs',
+        description: 'Assista todos os documentários narrados por IA sobre as paisagens naturais mais incríveis do planeta.',
+        url: 'https://raizesglobaisdocs.com.br/documentarios',
+        siteName: 'Raízes Globais Docs',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Documentários e Séries | Raízes Globais Docs',
+        description: 'Assista todos os documentários narrados por IA sobre as paisagens naturais mais incríveis do planeta.',
+    },
 };
 
 export const revalidate = 60;
@@ -15,9 +27,38 @@ export const revalidate = 60;
 export default async function DocumentariosPage() {
     const documentaries = await getAllDocumentaries();
 
+    // Build VideoObject schema for each documentary
+    const videoSchemaItems = documentaries?.map((doc: any, index: number) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+            "@type": "VideoObject",
+            "name": doc.title,
+            "description": doc.title,
+            "thumbnailUrl": doc.thumbnail
+                ? `https://cdn.sanity.io/images/n9mc4chu/production/${doc.thumbnail.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`
+                : `https://img.youtube.com/vi/${doc.youtubeId}/maxresdefault.jpg`,
+            "uploadDate": doc.publishedAt || new Date().toISOString(),
+            "contentUrl": doc.youtubeUrl || `https://www.youtube.com/watch?v=${doc.youtubeId}`,
+            "embedUrl": `https://www.youtube.com/embed/${doc.youtubeId}`,
+        },
+    })) || [];
+
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Documentários - Raízes Globais Docs",
+        "itemListElement": videoSchemaItems,
+    };
+
     return (
         <>
             <Navbar />
+            {/* Schema Markup: VideoObject ItemList */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+            />
             <main className="flex-grow pt-32 pb-24 bg-background min-h-screen">
                 <div className="container mx-auto px-6 md:px-12">
                     {/* Header */}
