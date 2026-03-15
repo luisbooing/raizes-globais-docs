@@ -79,6 +79,37 @@ export default defineType({
             type: 'array',
             of: [{ type: 'image', options: { hotspot: true } }],
         }),
+        defineField({
+            name: 'faq',
+            title: 'Perguntas Frequentes (FAQ)',
+            type: 'array',
+            description: 'Adicione perguntas e respostas sobre o destino. Essas FAQs ajudam no SEO (Featured Snippets) e AEO.',
+            of: [
+                {
+                    type: 'object',
+                    name: 'faqItem',
+                    title: 'Pergunta',
+                    fields: [
+                        defineField({
+                            name: 'question',
+                            title: 'Pergunta',
+                            type: 'string',
+                            validation: (Rule) => Rule.required(),
+                        }),
+                        defineField({
+                            name: 'answer',
+                            title: 'Resposta',
+                            type: 'text',
+                            rows: 4,
+                            validation: (Rule) => Rule.required(),
+                        }),
+                    ],
+                    preview: {
+                        select: { title: 'question' },
+                    },
+                },
+            ],
+        }),
     ],
     preview: {
         select: { title: 'name', media: 'mainImage' },
