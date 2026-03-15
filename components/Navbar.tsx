@@ -36,6 +36,7 @@ export default function Navbar() {
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center space-x-8">
                     <Link href="/" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Início</Link>
+                    <Link href="/sobre" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Sobre</Link>
                     <Link href="/destinos" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Destinos</Link>
                     <Link href="/documentarios" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Séries</Link>
                     <Link href="/#planejamento" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Planeje</Link>
@@ -54,6 +55,7 @@ export default function Navbar() {
             {isMobileMenuOpen && (
                 <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-lg flex flex-col items-center py-6 space-y-6 shadow-xl border-t border-white/10">
                     <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Início</Link>
+                    <Link href="/sobre" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Sobre</Link>
                     <Link href="/destinos" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Destinos</Link>
                     <Link href="/documentarios" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Séries</Link>
                     <Link href="/#planejamento" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Planeje</Link>

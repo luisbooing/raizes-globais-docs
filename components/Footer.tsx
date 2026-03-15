@@ -29,9 +29,9 @@ export default function Footer() {
                     <div>
                         <h4 className="text-white font-semibold mb-6 uppercase tracking-wider text-sm">Explorar</h4>
                         <ul className="space-y-4 font-light">
-                            <li><Link href="/#destinos" className="text-foreground/70 hover:text-white transition-colors">Destinos</Link></li>
-                            <li><Link href="/#documentarios" className="text-foreground/70 hover:text-white transition-colors">Séries Documentais</Link></li>
-                            <li><Link href="/#sobre" className="text-foreground/70 hover:text-white transition-colors">Sobre o Projeto</Link></li>
+                            <li><Link href="/destinos" className="text-foreground/70 hover:text-white transition-colors">Destinos</Link></li>
+                            <li><Link href="/documentarios" className="text-foreground/70 hover:text-white transition-colors">Séries Documentais</Link></li>
+                            <li><Link href="/sobre" className="text-foreground/70 hover:text-white transition-colors">Sobre o Projeto</Link></li>
                         </ul>
                     </div>
 

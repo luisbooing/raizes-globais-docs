@@ -257,6 +257,50 @@ export default async function CountryPage({ params }: PageProps) {
                                         </div>
                                     </section>
                                 )}
+
+                                {/* Perguntas Frequentes (FAQ) */}
+                                {dest.faq && dest.faq.length > 0 && (
+                                    <section>
+                                        <h2 className="text-3xl font-serif font-bold text-white mb-6 flex items-center">
+                                            <span className="w-8 h-[1px] bg-primary-500 mr-4"></span>
+                                            Perguntas Frequentes
+                                        </h2>
+                                        <div className="space-y-4">
+                                            {dest.faq.map((item: any, index: number) => (
+                                                <details
+                                                    key={item._key || index}
+                                                    className="group bg-card/30 rounded-xl border border-white/5 overflow-hidden"
+                                                >
+                                                    <summary className="flex items-center justify-between cursor-pointer p-5 text-white font-medium hover:bg-white/5 transition-colors list-none">
+                                                        <span className="pr-4">{item.question}</span>
+                                                        <span className="text-primary-500 text-xl font-light flex-shrink-0 group-open:rotate-45 transition-transform duration-200">+</span>
+                                                    </summary>
+                                                    <div className="px-5 pb-5 text-foreground/70 font-light leading-relaxed border-t border-white/5 pt-4">
+                                                        {item.answer}
+                                                    </div>
+                                                </details>
+                                            ))}
+                                        </div>
+                                        {/* FAQPage Schema for AEO */}
+                                        <script
+                                            type="application/ld+json"
+                                            dangerouslySetInnerHTML={{
+                                                __html: JSON.stringify({
+                                                    "@context": "https://schema.org",
+                                                    "@type": "FAQPage",
+                                                    "mainEntity": dest.faq.map((item: any) => ({
+                                                        "@type": "Question",
+                                                        "name": item.question,
+                                                        "acceptedAnswer": {
+                                                            "@type": "Answer",
+                                                            "text": item.answer,
+                                                        },
+                                                    })),
+                                                }),
+                                            }}
+                                        />
+                                    </section>
+                                )}
                             </div>
 
                             <div className="space-y-12">

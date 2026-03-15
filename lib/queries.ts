@@ -32,6 +32,7 @@ export async function getDestinationBySlug(slug: string) {
       curiosities,
       youtubeId,
       gallery,
+      faq,
       seoTitle,
       seoDescription
     }`,
