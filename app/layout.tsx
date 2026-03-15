@@ -39,6 +39,9 @@ export const metadata: Metadata = {
     },
     description: 'Documentando as belezas naturais do mundo com poesia e cinema',
     metadataBase: new URL('https://raizesglobaisdocs.com.br'),
+    alternates: {
+        canonical: '/',
+    },
     openGraph: {
         title: 'Raízes Globais Docs',
         description: 'Documentando as belezas naturais do mundo com poesia e cinema',

@@ -20,6 +20,9 @@ export const metadata: Metadata = {
         title: 'Documentários e Séries | Raízes Globais Docs',
         description: 'Assista todos os documentários narrados por IA sobre as paisagens naturais mais incríveis do planeta.',
     },
+    alternates: {
+        canonical: 'https://raizesglobaisdocs.com.br/documentarios',
+    },
 };
 
 export const revalidate = 60;
@@ -76,13 +79,20 @@ export default async function DocumentariosPage() {
                     {documentaries && documentaries.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {documentaries.map((doc: any) => (
-                                <a
+                                <article
                                     key={doc._id}
-                                    href={doc.youtubeUrl || `https://www.youtube.com/watch?v=${doc.youtubeId}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group block bg-card/30 rounded-2xl overflow-hidden border border-white/5 hover:border-primary-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/5"
+                                    className="group relative bg-card/30 rounded-2xl overflow-hidden border border-white/5 hover:border-primary-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/5"
                                 >
+                                    <a
+                                        href={doc.youtubeUrl || `https://www.youtube.com/watch?v=${doc.youtubeId}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="absolute inset-0 z-10"
+                                        aria-label={`Assistir ${doc.title}`}
+                                    >
+                                        <span className="sr-only">Assistir {doc.title}</span>
+                                    </a>
+                                    
                                     {/* Thumbnail */}
                                     <div className="relative aspect-video overflow-hidden">
                                         <img
@@ -116,10 +126,15 @@ export default async function DocumentariosPage() {
                                             {doc.destination && (
                                                 <span className="text-primary-500/80">{doc.destination.name}</span>
                                             )}
+                                            {doc.publishedAt && (
+                                                <time dateTime={doc.publishedAt} className="text-xs text-foreground/40 hidden md:block">
+                                                    {new Date(doc.publishedAt).toLocaleDateString('pt-BR')}
+                                                </time>
+                                            )}
                                             {doc.views && <span>{doc.views} views</span>}
                                         </div>
                                     </div>
-                                </a>
+                                </article>
                             ))}
                         </div>
                     ) : (

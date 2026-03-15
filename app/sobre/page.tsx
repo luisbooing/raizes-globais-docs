@@ -11,6 +11,9 @@ export const metadata: Metadata = {
         description: 'Conheça o projeto Raízes Globais Docs, nossa equipe e nossa missão de documentar a poesia e beleza natural do nosso mundo.',
         url: 'https://raizesglobaisdocs.com.br/sobre',
     },
+    alternates: {
+        canonical: 'https://raizesglobaisdocs.com.br/sobre',
+    },
 };
 
 export default function SobrePage() {

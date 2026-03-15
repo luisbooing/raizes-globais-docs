@@ -41,6 +41,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                 description,
                 ...(imageUrl && { images: [imageUrl] }),
             },
+            alternates: {
+                canonical: `${baseUrl}/destinos/${params.slug}`,
+            },
         };
     }
 
@@ -64,6 +67,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             title: `${country.name} | Raízes Globais Docs`,
             description: country.shortDescription,
             images: [country.imageUrl],
+        },
+        alternates: {
+            canonical: `${baseUrl}/destinos/${params.slug}`,
         },
     };
 }
@@ -127,16 +133,16 @@ export default async function CountryPage({ params }: PageProps) {
                     }}
                 />
                 <main className="flex-grow pt-24 bg-background">
-                    <div className="container mx-auto px-6 md:px-12 py-12">
+                    <article className="container mx-auto px-6 md:px-12 py-12">
                         {/* Header */}
-                        <div className="mb-12">
+                        <header className="mb-12">
                             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
                                 {dest.name}
                             </h1>
                             <p className="text-xl md:text-2xl text-foreground/80 font-light max-w-3xl">
                                 {dest.shortDescription}
                             </p>
-                        </div>
+                        </header>
 
                         {/* Video Section */}
                         {dest.youtubeId && (
@@ -204,6 +210,7 @@ export default async function CountryPage({ params }: PageProps) {
                                                         src={urlFor(image).width(800).height(600).url()}
                                                         alt={image.alt || `${dest.name} - Imagem ${index + 1}`}
                                                         fill
+                                                        priority={index < 2} // Otimiza LCP para as primeiras imagens da galeria
                                                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                                     />
@@ -216,20 +223,26 @@ export default async function CountryPage({ params }: PageProps) {
 
                                 {/* Documentários Relacionados */}
                                 {documentaries && documentaries.length > 0 && (
-                                    <section>
+                                    <aside aria-label={`Séries sobre ${dest.name}`}>
                                         <h2 className="text-3xl font-serif font-bold text-white mb-6 flex items-center">
                                             <span className="w-8 h-[1px] bg-primary-500 mr-4"></span>
                                             Documentários sobre {dest.name}
                                         </h2>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {documentaries.map((doc: any) => (
-                                                <a
+                                                <article
                                                     key={doc._id}
-                                                    href={doc.youtubeUrl || `https://www.youtube.com/watch?v=${doc.youtubeId}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="group block bg-card/30 rounded-xl overflow-hidden border border-white/5 hover:border-primary-500/30 transition-all"
+                                                    className="group relative bg-card/30 rounded-xl overflow-hidden border border-white/5 hover:border-primary-500/30 transition-all"
                                                 >
+                                                    <a
+                                                        href={doc.youtubeUrl || `https://www.youtube.com/watch?v=${doc.youtubeId}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="absolute inset-0 z-10"
+                                                        aria-label={`Assistir ${doc.title}`}
+                                                    >
+                                                        <span className="sr-only">Assistir {doc.title}</span>
+                                                    </a>
                                                     <div className="relative aspect-video overflow-hidden">
                                                         <img
                                                             src={`https://img.youtube.com/vi/${doc.youtubeId}/maxresdefault.jpg`}
@@ -252,10 +265,10 @@ export default async function CountryPage({ params }: PageProps) {
                                                             {doc.title}
                                                         </h3>
                                                     </div>
-                                                </a>
+                                                </article>
                                             ))}
                                         </div>
-                                    </section>
+                                    </aside>
                                 )}
 
                                 {/* Perguntas Frequentes (FAQ) */}
@@ -303,7 +316,7 @@ export default async function CountryPage({ params }: PageProps) {
                                 )}
                             </div>
 
-                            <div className="space-y-12">
+                            <aside className="space-y-12" aria-label="Informações Adicionais">
                                 {/* Melhor Época */}
                                 {dest.bestTime && (
                                     <section className="bg-card p-8 rounded-xl border border-white/10">
@@ -316,11 +329,11 @@ export default async function CountryPage({ params }: PageProps) {
                                         </button>
                                     </section>
                                 )}
-                            </div>
+                            </aside>
                         </div>
 
                         {/* Affiliate Blocks */}
-                        <div className="py-16 border-t border-white/10">
+                        <aside className="py-16 border-t border-white/10" aria-label="Apoie o Projeto">
                             <div className="text-center mb-12">
                                 <h2 className="text-3xl font-serif font-bold text-white">Monte Sua Expedição</h2>
                                 <p className="text-foreground/60 font-light mt-4">Nossas recomendações de afiliados para {dest.name}</p>
@@ -331,8 +344,8 @@ export default async function CountryPage({ params }: PageProps) {
                                 <PlanejamentoCard title="Seguro Viagem" description="Cobertura para esportes extremos." icon={<Shield size={24} />} actionText="Cotação" href="#" />
                                 <PlanejamentoCard title="Equipamentos" description="Aluguel de câmeras e drones." icon={<Camera size={24} />} actionText="Ver Itens" href="#" />
                             </div>
-                        </div>
-                    </div>
+                        </aside>
+                    </article>
                 </main>
                 <Footer />
             </>
@@ -347,11 +360,11 @@ export default async function CountryPage({ params }: PageProps) {
         <>
             <Navbar />
             <main className="flex-grow pt-24 bg-background">
-                <div className="container mx-auto px-6 md:px-12 py-12">
-                    <div className="mb-12">
+                <article className="container mx-auto px-6 md:px-12 py-12">
+                    <header className="mb-12">
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">{country.name}</h1>
                         <p className="text-xl md:text-2xl text-foreground/80 font-light max-w-3xl">{country.shortDescription}</p>
-                    </div>
+                    </header>
 
                     <div className="relative aspect-video rounded-xl overflow-hidden mb-16 shadow-2xl border border-white/10">
                         <div className="absolute inset-0 bg-card flex items-center justify-center">
@@ -391,16 +404,16 @@ export default async function CountryPage({ params }: PageProps) {
                                 </ul>
                             </section>
                         </div>
-                        <div className="space-y-12">
-                            <section className="bg-card p-8 rounded-xl border border-white/10">
-                                <h2 className="text-xl font-serif font-bold text-white mb-4">Melhor época para visitar</h2>
-                                <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6">{country.bestTime}</p>
-                                <button className="w-full bg-primary-600 hover:bg-primary-500 text-white py-3 rounded text-sm font-medium tracking-widest uppercase transition-colors">Baixar Guia PDF</button>
-                            </section>
+                            <aside className="space-y-12" aria-label="Informações Adicionais">
+                                <section className="bg-card p-8 rounded-xl border border-white/10">
+                                    <h2 className="text-xl font-serif font-bold text-white mb-4">Melhor época para visitar</h2>
+                                    <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6">{country.bestTime}</p>
+                                    <button className="w-full bg-primary-600 hover:bg-primary-500 text-white py-3 rounded text-sm font-medium tracking-widest uppercase transition-colors">Baixar Guia PDF</button>
+                                </section>
+                            </aside>
                         </div>
-                    </div>
 
-                    <div className="py-16 border-t border-white/10">
+                    <aside className="py-16 border-t border-white/10" aria-label="Apoie o Projeto">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-serif font-bold text-white">Monte Sua Expedição</h2>
                             <p className="text-foreground/60 font-light mt-4">Nossas recomendações de afiliados para {country.name}</p>
@@ -411,8 +424,8 @@ export default async function CountryPage({ params }: PageProps) {
                             <PlanejamentoCard title="Seguro Viagem" description="Cobertura para esportes extremos." icon={<Shield size={24} />} actionText="Cotação" href="#" />
                             <PlanejamentoCard title="Equipamentos" description="Aluguel de câmeras e drones." icon={<Camera size={24} />} actionText="Ver Itens" href="#" />
                         </div>
-                    </div>
-                </div>
+                    </aside>
+                </article>
             </main>
             <Footer />
         </>
