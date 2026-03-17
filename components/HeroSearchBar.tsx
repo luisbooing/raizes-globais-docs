@@ -25,9 +25,9 @@ export default function HeroSearchBar() {
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-2xl mx-auto px-2 sm:px-0">
             <div className={`flex items-center bg-white/10 backdrop-blur-xl rounded-full border transition-all duration-500 ${isFocused ? 'border-primary-500/60 shadow-lg shadow-primary-500/20' : 'border-white/20 shadow-xl shadow-black/20'}`}>
-                <div className="pl-6 text-white/50">
+                <div className="pl-4 sm:pl-6 text-white/50">
                     <Search size={20} strokeWidth={1.5} />
                 </div>
                 <input
@@ -38,14 +38,14 @@ export default function HeroSearchBar() {
                     onKeyDown={handleKeyDown}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
-                    className="flex-1 py-4 px-4 text-white placeholder:text-white/40 bg-transparent border-none outline-none text-base md:text-lg font-light tracking-wide"
+                    className="flex-1 py-3 px-3 sm:py-4 sm:px-4 text-white placeholder:text-white/40 bg-transparent border-none outline-none text-sm sm:text-base md:text-lg font-light tracking-wide w-full"
                 />
                 <button
                     onClick={handleSearch}
-                    className="m-1.5 bg-primary-500 hover:bg-primary-600 text-white px-6 md:px-8 py-3 rounded-full font-medium tracking-wider transition-all duration-300 text-sm uppercase flex items-center gap-2 hover:gap-3 hover:shadow-lg hover:shadow-primary-500/30"
+                    className="m-1 bg-primary-500 hover:bg-primary-600 text-white px-4 py-2.5 sm:px-6 md:px-8 sm:py-3 rounded-full font-medium tracking-wider transition-all duration-300 text-xs sm:text-sm uppercase flex items-center gap-1.5 sm:gap-2 hover:gap-3 hover:shadow-lg hover:shadow-primary-500/30 whitespace-nowrap"
                 >
-                    Buscar
-                    <ArrowRight size={16} strokeWidth={2} />
+                    <span className="hidden sm:inline">Buscar</span>
+                    <ArrowRight size={16} strokeWidth={2} className="sm:hidden md:block" />
                 </button>
             </div>
         </div>
