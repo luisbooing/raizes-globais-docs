@@ -15,8 +15,11 @@ interface SanityDestination {
 export default function DestinosSearchGrid({ destinations, initialSearch = '' }: { destinations: SanityDestination[]; initialSearch?: string }) {
     const [search, setSearch] = useState(initialSearch);
 
+    const normalizeString = (str: string) => 
+        str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
     const filtered = destinations.filter((d) =>
-        d.name.toLowerCase().includes(search.toLowerCase())
+        normalizeString(d.name).includes(normalizeString(search))
     );
 
     return (
