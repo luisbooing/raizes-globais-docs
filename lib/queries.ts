@@ -34,7 +34,17 @@ export async function getDestinationBySlug(slug: string) {
       gallery,
       faq,
       seoTitle,
-      seoDescription
+      seoDescription,
+      hasGuide,
+      guideIntroduction,
+      guideWhereToGo,
+      guideWhenToGo,
+      guideWhenToGoGoldenTip,
+      guideWhatToDo,
+      guideWhereToStay,
+      guideWhereToStayTip,
+      guidePracticalTips,
+      guideCtaLinks
     }`,
         { slug }
     );

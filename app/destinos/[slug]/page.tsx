@@ -9,6 +9,7 @@ import PlanejamentoCard from '@/components/PlanejamentoCard';
 import { Home, Backpack, Shield, Camera, Play } from 'lucide-react';
 import type { Metadata } from 'next';
 import { PortableText } from 'next-sanity';
+import Link from 'next/link';
 
 interface PageProps {
     params: { slug: string };
@@ -324,9 +325,12 @@ export default async function CountryPage({ params }: PageProps) {
                                         <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6">
                                             {dest.bestTime}
                                         </p>
-                                        <button className="w-full bg-primary-600 hover:bg-primary-500 text-white py-3 rounded text-sm font-medium tracking-widest uppercase transition-colors">
-                                            Baixar Guia PDF
-                                        </button>
+                                        
+                                        {dest.hasGuide && (
+                                            <Link href={`/guia/${params.slug}`} className="block w-full bg-primary-600 hover:bg-primary-500 text-white py-3 rounded text-sm font-medium tracking-widest uppercase transition-colors text-center shadow-lg border border-primary-500/50 hover:border-primary-500">
+                                                Baixar Guia PDF
+                                            </Link>
+                                        )}
                                     </section>
                                 )}
                             </aside>
@@ -408,7 +412,7 @@ export default async function CountryPage({ params }: PageProps) {
                                 <section className="bg-card p-8 rounded-xl border border-white/10">
                                     <h2 className="text-xl font-serif font-bold text-white mb-4">Melhor época para visitar</h2>
                                     <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6">{country.bestTime}</p>
-                                    <button className="w-full bg-primary-600 hover:bg-primary-500 text-white py-3 rounded text-sm font-medium tracking-widest uppercase transition-colors">Baixar Guia PDF</button>
+                                    <Link href={`/guia/${params.slug}`} className="block w-full bg-primary-600 hover:bg-primary-500 text-white py-3 rounded text-sm font-medium tracking-widest uppercase transition-colors text-center">Baixar Guia PDF</Link>
                                 </section>
                             </aside>
                         </div>
