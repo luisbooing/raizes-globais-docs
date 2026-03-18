@@ -1,0 +1,46 @@
+@media print {
+  /* Oculta tudo na impressão, exceto o conteúdo do guia */
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  /* Esconde Scrollbars e Menu */
+  nav, footer, .no-print {
+    display: none !important;
+  }
+
+  /* Garante cores de fundo aparecendo no PDF */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Capa ocupa a A4 inteira */
+  .pdf-cover {
+    height: 100vh !important;
+    page-break-after: always;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  
+  /* Força a quebra de página antes de seções importantes */
+  .page-break-before {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  /* Impede que pedaços de um elemento se dividam entre duas páginas (ideal para cards e textos) */
+  .avoid-break-inside {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+
+  /* Configuração extra para bordas de A4 na impressão via browser */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+}

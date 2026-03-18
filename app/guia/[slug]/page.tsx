@@ -1,9 +1,8 @@
-'use client';
-
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from 'next/navigation';
-import { MoveLeft, Printer, MapPin, Calendar, Compass, BedDouble, CheckCircle2, Ticket } from "lucide-react";
+import { MoveLeft, MapPin, Calendar, Compass, BedDouble, CheckCircle2, Ticket } from "lucide-react";
+import PrintPDFButton from '@/components/PrintPDFButton';
 import { getDestinationBySlug } from '@/lib/queries';
 import { urlFor } from '@/sanity/image';
 import { PortableText } from 'next-sanity';
@@ -49,13 +48,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
         </Link>
         <div className="flex items-center gap-4">
           <p className="text-sm text-neutral-500 hidden sm:block">Dica: Salve como PDF em A4, com "Gráficos de segundo plano" ativos.</p>
-          <button 
-            onClick={() => window.print()}
-            className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg font-bold hover:bg-primary/90 transition-colors shadow-md"
-          >
-            <Printer size={20} />
-            Baixar Guia PDF
-          </button>
+          <PrintPDFButton />
         </div>
       </div>
 
