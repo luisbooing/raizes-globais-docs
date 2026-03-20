@@ -84,7 +84,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
 
       {/* 1. INTRODUÇÃO */}
       {guideIntroduction && (
-        <section className="p-12 min-h-screen print:min-h-0 flex flex-col justify-center print:block print:py-8">
+        <section className="py-16 px-6 md:px-12 border-b border-neutral-200 print:border-none print:py-8">
           <h2 className="text-4xl font-bold text-neutral-900 mb-8 pb-4 border-b-2 border-primary inline-block self-start">
             O Chamado Ancestral
           </h2>
@@ -99,7 +99,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
       {guideWhereToGo && guideWhereToGo.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen print:min-h-0 print:py-8">
+          <section className="py-16 px-6 md:px-12 border-b border-neutral-200 print:border-none print:py-8">
             <div className="flex items-center gap-4 mb-10">
               <div className="p-3 bg-primary/10 rounded-full text-primary">
                 <MapPin size={32} />
@@ -135,7 +135,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
       {guideWhenToGo && guideWhenToGo.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen print:min-h-0 print:py-8">
+          <section className="py-16 px-6 md:px-12 border-b border-neutral-200 print:border-none print:py-8">
             <div className="flex items-center gap-4 mb-10">
               <div className="p-3 bg-primary/10 rounded-full text-primary">
                 <Calendar size={32} />
@@ -182,7 +182,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
       {guideWhatToDo && guideWhatToDo.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen border-b border-neutral-200 print:border-none print:min-h-0 print:py-8">
+          <section className="py-16 px-6 md:px-12 border-b border-neutral-200 print:border-none print:py-8">
             <div className="flex items-center gap-4 mb-10">
               <div className="p-3 bg-primary/10 rounded-full text-primary">
                 <Compass size={32} />
@@ -211,7 +211,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
 
       {/* 5. ONDE FICAR */}
       {guideWhereToStay && guideWhereToStay.length > 0 && (
-        <section className="p-12 border-b border-neutral-200 print:text-black">
+        <section className="py-16 px-6 md:px-12 border-b border-neutral-200 print:border-none print:py-8 print:text-black">
           <div className="flex items-center gap-4 mb-8">
             <div className="p-3 bg-primary/10 rounded-full text-primary">
               <BedDouble size={32} />
@@ -247,7 +247,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
       {guidePracticalTips && guidePracticalTips.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen print:min-h-0 print:py-8">
+          <section className="py-16 px-6 md:px-12 border-b border-neutral-200 print:border-none print:py-8">
             <h2 className="text-4xl font-bold text-neutral-900 mb-10 pb-4 border-b-2 border-primary inline-block">
               Dicas Práticas de Preparação
             </h2>
@@ -269,7 +269,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
 
       {/* 7. CTA / PARCEIROS */}
       <div className="page-break-before" />
-      <section className="p-12 min-h-screen flex flex-col justify-center bg-neutral-900 text-white print:bg-white print:text-black print:min-h-0 print:block print:py-8">
+      <section className="py-16 px-6 md:px-12 bg-neutral-900 text-white print:bg-white print:text-black print:py-8">
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold mb-6">Sua Aventura Começa Agora!</h2>
           <p className="text-xl text-neutral-300 print:text-neutral-700 max-w-2xl mx-auto">
