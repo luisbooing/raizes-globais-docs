@@ -82,31 +82,24 @@ export default async function GuidePdfPage({ params }: PageProps) {
         </div>
       </section>
 
-      <div className="page-break-before" />
-
       {/* 1. INTRODUÇÃO */}
       {guideIntroduction && (
-        <>
-          <div className="page-break-before" />
-          <section className="p-12 min-h-screen flex flex-col justify-center">
-            <h2 className="text-4xl font-bold text-neutral-900 mb-8 pb-4 border-b-2 border-primary inline-block self-start">
-              O Chamado Ancestral
-            </h2>
-            
-            <div className="prose prose-lg text-neutral-700 max-w-none prose-p:mb-6 prose-strong:text-neutral-900">
-               <PortableText value={guideIntroduction} />
-            </div>
-          </section>
-        </>
+        <section className="p-12 min-h-screen print:min-h-0 flex flex-col justify-center print:block print:py-8">
+          <h2 className="text-4xl font-bold text-neutral-900 mb-8 pb-4 border-b-2 border-primary inline-block self-start">
+            O Chamado Ancestral
+          </h2>
+          
+          <div className="prose prose-lg text-neutral-700 max-w-none prose-p:mb-6 prose-strong:text-neutral-900">
+             <PortableText value={guideIntroduction} />
+          </div>
+        </section>
       )}
-
-      <div className="page-break-before" />
 
       {/* 2. ONDE IR */}
       {guideWhereToGo && guideWhereToGo.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen">
+          <section className="p-12 min-h-screen print:min-h-0 print:py-8">
             <div className="flex items-center gap-4 mb-10">
               <div className="p-3 bg-primary/10 rounded-full text-primary">
                 <MapPin size={32} />
@@ -138,13 +131,11 @@ export default async function GuidePdfPage({ params }: PageProps) {
         </>
       )}
 
-      <div className="page-break-before" />
-
       {/* 3. QUANDO IR */}
       {guideWhenToGo && guideWhenToGo.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen">
+          <section className="p-12 min-h-screen print:min-h-0 print:py-8">
             <div className="flex items-center gap-4 mb-10">
               <div className="p-3 bg-primary/10 rounded-full text-primary">
                 <Calendar size={32} />
@@ -187,13 +178,11 @@ export default async function GuidePdfPage({ params }: PageProps) {
         </>
       )}
 
-      <div className="page-break-before" />
-
       {/* 4. O QUE FAZER */}
       {guideWhatToDo && guideWhatToDo.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen border-b border-neutral-200 print:border-none">
+          <section className="p-12 min-h-screen border-b border-neutral-200 print:border-none print:min-h-0 print:py-8">
             <div className="flex items-center gap-4 mb-10">
               <div className="p-3 bg-primary/10 rounded-full text-primary">
                 <Compass size={32} />
@@ -254,13 +243,11 @@ export default async function GuidePdfPage({ params }: PageProps) {
         </section>
       )}
 
-      <div className="page-break-before" />
-
       {/* 6. DICAS PRÁTICAS */}
       {guidePracticalTips && guidePracticalTips.length > 0 && (
         <>
           <div className="page-break-before" />
-          <section className="p-12 min-h-screen">
+          <section className="p-12 min-h-screen print:min-h-0 print:py-8">
             <h2 className="text-4xl font-bold text-neutral-900 mb-10 pb-4 border-b-2 border-primary inline-block">
               Dicas Práticas de Preparação
             </h2>
@@ -280,11 +267,9 @@ export default async function GuidePdfPage({ params }: PageProps) {
         </>
       )}
 
-      <div className="page-break-before" />
-
       {/* 7. CTA / PARCEIROS */}
       <div className="page-break-before" />
-      <section className="p-12 min-h-screen flex flex-col justify-center bg-neutral-900 text-white print:bg-white print:text-black">
+      <section className="p-12 min-h-screen flex flex-col justify-center bg-neutral-900 text-white print:bg-white print:text-black print:min-h-0 print:block print:py-8">
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold mb-6">Sua Aventura Começa Agora!</h2>
           <p className="text-xl text-neutral-300 print:text-neutral-700 max-w-2xl mx-auto">
