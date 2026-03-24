@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { countries } from '@/lib/data';
-import { getDestinationBySlug, getAllDestinationSlugs, getDocumentariesByDestination } from '@/lib/queries';
+import { getDestinationBySlug, getAllDestinationSlugs, getDocumentariesByDestination, getPartnersByDestination } from '@/lib/queries';
 import { urlFor } from '@/sanity/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -94,6 +94,8 @@ export default async function CountryPage({ params }: PageProps) {
     if (dest) {
         // Get related documentaries
         const documentaries = dest._id ? await getDocumentariesByDestination(dest._id) : [];
+        const destPartners = dest._id ? await getPartnersByDestination(dest._id) : [];
+        const hasPartners = destPartners && destPartners.length > 0;
 
         return (
             <>
@@ -346,10 +348,25 @@ export default async function CountryPage({ params }: PageProps) {
                                 <p className="text-foreground/60 font-light mt-4">Nossas recomendações de afiliados para {dest.name}</p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                <PlanejamentoCard title="Hospedagem" description="Hotéis e chalés recomendados." icon={<Home size={24} />} actionText="Reservar" href="#" />
-                                <PlanejamentoCard title="Passeios" description="Guias locais de confiança." icon={<Backpack size={24} />} actionText="Explorar" href="#" />
-                                <PlanejamentoCard title="Seguro Viagem" description="Cobertura para esportes extremos." icon={<Shield size={24} />} actionText="Cotação" href="#" />
-                                <PlanejamentoCard title="Equipamentos" description="Aluguel de câmeras e drones." icon={<Camera size={24} />} actionText="Ver Itens" href="#" />
+                                {hasPartners
+                                    ? destPartners.map((partner: any) => (
+                                        <PlanejamentoCard
+                                            key={partner._id}
+                                            title={partner.name}
+                                            description={partner.description}
+                                            logoUrl={partner.logo ? urlFor(partner.logo).width(96).height(96).url() : undefined}
+                                            category={partner.category}
+                                            actionText={partner.actionText || 'Saiba Mais'}
+                                            href={partner.affiliateUrl}
+                                        />
+                                    ))
+                                    : (<>
+                                        <PlanejamentoCard title="Hospedagem" description="Hotéis e chalés recomendados." icon={<Home size={24} />} actionText="Reservar" href="/planeje#hospedagem" />
+                                        <PlanejamentoCard title="Passeios" description="Guias locais de confiança." icon={<Backpack size={24} />} actionText="Explorar" href="/planeje#passeios" />
+                                        <PlanejamentoCard title="Seguro Viagem" description="Cobertura para esportes extremos." icon={<Shield size={24} />} actionText="Cotação" href="/planeje#seguro" />
+                                        <PlanejamentoCard title="Equipamentos" description="Aluguel de câmeras e drones." icon={<Camera size={24} />} actionText="Ver Itens" href="/planeje#equipamentos" />
+                                    </>)
+                                }
                             </div>
                         </aside>
                     </article>
@@ -426,10 +443,10 @@ export default async function CountryPage({ params }: PageProps) {
                             <p className="text-foreground/60 font-light mt-4">Nossas recomendações de afiliados para {country.name}</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <PlanejamentoCard title="Hospedagem" description="Hotéis e chalés recomendados." icon={<Home size={24} />} actionText="Reservar" href="#" />
-                            <PlanejamentoCard title="Passeios" description="Guias locais de confiança." icon={<Backpack size={24} />} actionText="Explorar" href="#" />
-                            <PlanejamentoCard title="Seguro Viagem" description="Cobertura para esportes extremos." icon={<Shield size={24} />} actionText="Cotação" href="#" />
-                            <PlanejamentoCard title="Equipamentos" description="Aluguel de câmeras e drones." icon={<Camera size={24} />} actionText="Ver Itens" href="#" />
+                            <PlanejamentoCard title="Hospedagem" description="Hotéis e chalés recomendados." icon={<Home size={24} />} actionText="Reservar" href="/planeje#hospedagem" />
+                            <PlanejamentoCard title="Passeios" description="Guias locais de confiança." icon={<Backpack size={24} />} actionText="Explorar" href="/planeje#passeios" />
+                            <PlanejamentoCard title="Seguro Viagem" description="Cobertura para esportes extremos." icon={<Shield size={24} />} actionText="Cotação" href="/planeje#seguro" />
+                            <PlanejamentoCard title="Equipamentos" description="Aluguel de câmeras e drones." icon={<Camera size={24} />} actionText="Ver Itens" href="/planeje#equipamentos" />
                         </div>
                     </aside>
                 </article>

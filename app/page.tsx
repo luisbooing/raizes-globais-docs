@@ -6,7 +6,7 @@ import PlanejamentoCard from '@/components/PlanejamentoCard';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { countries, recentVideos } from '@/lib/data';
-import { getAllDestinations, getRecentDocumentaries } from '@/lib/queries';
+import { getAllDestinations, getRecentDocumentaries, getFeaturedPartners } from '@/lib/queries';
 import { urlFor } from '@/sanity/image';
 import { Home, Compass, Camera, Backpack, Play } from 'lucide-react';
 import Link from 'next/link';
@@ -17,10 +17,12 @@ export default async function HomePage() {
     // Fetch from Sanity CMS
     const cmsDestinations = await getAllDestinations();
     const cmsDocumentaries = await getRecentDocumentaries(3);
+    const featuredPartners = await getFeaturedPartners();
 
     // Use CMS data if available, otherwise fall back to static data
     const hasDestinations = cmsDestinations && cmsDestinations.length > 0;
     const hasDocumentaries = cmsDocumentaries && cmsDocumentaries.length > 0;
+    const hasPartners = featuredPartners && featuredPartners.length > 0;
 
     return (
         <>
@@ -168,34 +170,55 @@ export default async function HomePage() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <PlanejamentoCard
-                                title="Hospedagem"
-                                description="Encontre refúgios imersos na natureza com nosso parceiro exclusivo."
-                                icon={<Home size={32} strokeWidth={1.5} />}
-                                actionText="Buscar Estadias"
-                                href="#"
-                            />
-                            <PlanejamentoCard
-                                title="Passagens"
-                                description="Voos para os destinos mais remotos com as melhores conexões."
-                                icon={<Compass size={32} strokeWidth={1.5} />}
-                                actionText="Comprar Voos"
-                                href="#"
-                            />
-                            <PlanejamentoCard
-                                title="Passeios"
-                                description="Acesso exclusivo a guias locais e experiências únicas."
-                                icon={<Backpack size={32} strokeWidth={1.5} />}
-                                actionText="Ver Experiências"
-                                href="#"
-                            />
-                            <PlanejamentoCard
-                                title="Equipamentos"
-                                description="Câmeras, drones e roupas técnicas que utilizamos nas gravações."
-                                icon={<Camera size={32} strokeWidth={1.5} />}
-                                actionText="Loja Recomendada"
-                                href="#"
-                            />
+                            {hasPartners
+                                ? featuredPartners.map((partner: any) => (
+                                    <PlanejamentoCard
+                                        key={partner._id}
+                                        title={partner.name}
+                                        description={partner.description}
+                                        logoUrl={partner.logo ? urlFor(partner.logo).width(96).height(96).url() : undefined}
+                                        category={partner.category}
+                                        actionText={partner.actionText || 'Saiba Mais'}
+                                        href={partner.affiliateUrl}
+                                    />
+                                ))
+                                : (<>
+                                    <PlanejamentoCard
+                                        title="Hospedagem"
+                                        description="Encontre refúgios imersos na natureza com nosso parceiro exclusivo."
+                                        icon={<Home size={32} strokeWidth={1.5} />}
+                                        actionText="Buscar Estadias"
+                                        href="/planeje#hospedagem"
+                                    />
+                                    <PlanejamentoCard
+                                        title="Passagens"
+                                        description="Voos para os destinos mais remotos com as melhores conexões."
+                                        icon={<Compass size={32} strokeWidth={1.5} />}
+                                        actionText="Comprar Voos"
+                                        href="/planeje#passagens"
+                                    />
+                                    <PlanejamentoCard
+                                        title="Passeios"
+                                        description="Acesso exclusivo a guias locais e experiências únicas."
+                                        icon={<Backpack size={32} strokeWidth={1.5} />}
+                                        actionText="Ver Experiências"
+                                        href="/planeje#passeios"
+                                    />
+                                    <PlanejamentoCard
+                                        title="Equipamentos"
+                                        description="Câmeras, drones e roupas técnicas que utilizamos nas gravações."
+                                        icon={<Camera size={32} strokeWidth={1.5} />}
+                                        actionText="Loja Recomendada"
+                                        href="/planeje#equipamentos"
+                                    />
+                                </>)
+                            }
+                        </div>
+
+                        <div className="mt-12 text-center">
+                            <Link href="/planeje" className="border border-white/20 hover:bg-white/10 text-white px-8 py-3 rounded-full text-sm font-medium tracking-wide uppercase transition-colors">
+                                Ver Todos os Parceiros
+                            </Link>
                         </div>
                     </div>
                 </section>
