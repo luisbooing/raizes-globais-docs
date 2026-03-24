@@ -18,6 +18,7 @@ export default function Hero({ title, subtitle, imageUrl, actionText, showSearch
                     alt={title}
                     fill
                     priority
+                    sizes="100vw"
                     className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-cinematic" />

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -95,14 +96,17 @@ export default async function DocumentariosPage() {
                                     
                                     {/* Thumbnail */}
                                     <div className="relative aspect-video overflow-hidden">
-                                        <img
+                                        <Image
                                             src={
                                                 doc.thumbnail
                                                     ? `https://cdn.sanity.io/images/n9mc4chu/production/${doc.thumbnail.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`
                                                     : `https://img.youtube.com/vi/${doc.youtubeId}/maxresdefault.jpg`
                                             }
                                             alt={doc.title}
+                                            width={640}
+                                            height={360}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -18,6 +18,7 @@ export default function DestinoCard({ country }: DestinoCardProps) {
                 src={country.imageUrl}
                 alt={country.name}
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />

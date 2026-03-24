@@ -64,6 +64,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
              fill
              className="object-cover opacity-80"
              priority
+             sizes="100vw"
            />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
@@ -116,7 +117,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
                 <div key={idx} className="flex flex-col sm:flex-row gap-6 bg-neutral-50 rounded-xl overflow-hidden border border-neutral-200 avoid-break-inside print:bg-white print:border-neutral-300">
                   {place.image && (
                     <div className="relative w-full sm:w-1/3 h-48 sm:h-auto shrink-0 bg-neutral-200">
-                       <Image src={urlFor(place.image).width(800).height(600).url()} fill alt={place.name} className="object-cover" />
+                       <Image src={urlFor(place.image).width(800).height(600).url()} fill alt={place.name} className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
                     </div>
                   )}
                   <div className={`p-6 flex flex-col justify-center ${!place.image ? 'w-full' : ''}`}>
@@ -195,7 +196,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
                 <div key={idx} className="flex flex-col gap-4 avoid-break-inside">
                   {exp.image && (
                     <div className="relative h-48 rounded-xl overflow-hidden border border-neutral-200">
-                       <Image src={urlFor(exp.image).width(600).height(400).url()} fill alt={exp.title} className="object-cover" />
+                       <Image src={urlFor(exp.image).width(600).height(400).url()} fill alt={exp.title} className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                     </div>
                   )}
                   <div>
@@ -224,7 +225,7 @@ export default async function GuidePdfPage({ params }: PageProps) {
               <div key={idx} className="flex flex-col sm:flex-row gap-6 avoid-break-inside">
                 {stay.image && (
                   <div className="relative w-full sm:w-1/3 h-48 shrink-0 rounded-xl overflow-hidden">
-                     <Image src={urlFor(stay.image).width(800).height(600).url()} fill alt={stay.type} className="object-cover" />
+                     <Image src={urlFor(stay.image).width(800).height(600).url()} fill alt={stay.type} className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
                   </div>
                 )}
                 <div className="flex-1 flex flex-col justify-center">

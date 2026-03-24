@@ -211,7 +211,7 @@ export default async function CountryPage({ params }: PageProps) {
                                                         src={urlFor(image).width(800).height(600).url()}
                                                         alt={image.alt || `${dest.name} - Imagem ${index + 1}`}
                                                         fill
-                                                        priority={index < 2} // Otimiza LCP para as primeiras imagens da galeria
+                                                        priority={index < 2}
                                                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                                     />
@@ -245,10 +245,13 @@ export default async function CountryPage({ params }: PageProps) {
                                                         <span className="sr-only">Assistir {doc.title}</span>
                                                     </a>
                                                     <div className="relative aspect-video overflow-hidden">
-                                                        <img
+                                                        <Image
                                                             src={`https://img.youtube.com/vi/${doc.youtubeId}/maxresdefault.jpg`}
                                                             alt={doc.title}
+                                                            width={640}
+                                                            height={360}
                                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                            sizes="(max-width: 768px) 100vw, 50vw"
                                                         />
                                                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                             <div className="w-12 h-12 rounded-full bg-primary-500/90 flex items-center justify-center">

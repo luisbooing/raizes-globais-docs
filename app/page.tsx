@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Hero from '@/components/Hero';
 import DestinoCard from '@/components/DestinoCard';
 import VideoCard from '@/components/VideoCard';
@@ -98,14 +99,17 @@ export default async function HomePage() {
                                     >
                                         {/* Thumbnail */}
                                         <div className="relative aspect-video overflow-hidden">
-                                            <img
+                                            <Image
                                                 src={
                                                     doc.thumbnail
                                                         ? urlFor(doc.thumbnail).width(640).height(360).url()
                                                         : `https://img.youtube.com/vi/${doc.youtubeId}/maxresdefault.jpg`
                                                 }
                                                 alt={doc.title}
+                                                width={640}
+                                                height={360}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                sizes="(max-width: 768px) 100vw, 33vw"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
