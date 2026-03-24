@@ -113,3 +113,51 @@ export async function getDocumentariesByDestination(destinationId: string) {
         { destinationId }
     );
 }
+
+// ---- PARTNERS ----
+
+const partnerFields = `
+  _id,
+  name,
+  "slug": slug.current,
+  category,
+  description,
+  logo,
+  affiliateUrl,
+  actionText,
+  featured,
+  order,
+  destinations[]-> { _id, name, "slug": slug.current }
+`;
+
+/** Get all partners ordered by order */
+export async function getAllPartners() {
+    return client.fetch(
+        groq`*[_type == "partner"] | order(order asc) {
+      ${partnerFields}
+    }`
+    );
+}
+
+/** Get featured partners (for homepage) */
+export async function getFeaturedPartners() {
+    return client.fetch(
+        groq`*[_type == "partner" && featured == true] | order(order asc) {
+      ${partnerFields}
+    }`
+    );
+}
+
+/** Get partners for a specific destination (specific + global ones with no destinations) */
+export async function getPartnersByDestination(destinationId: string) {
+    return client.fetch(
+        groq`*[_type == "partner" && (
+      $destinationId in destinations[]._ref ||
+      count(destinations) == 0 ||
+      !defined(destinations)
+    )] | order(order asc) {
+      ${partnerFields}
+    }`,
+        { destinationId }
+    );
+}
