@@ -11,14 +11,17 @@
   "dependencies": {
     "@next/third-parties": "^14.2.5",
     "@sanity/image-url": "^2.0.3",
+    "@sanity/table": "^2.0.1",
     "@sanity/vision": "^3.99.0",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.412.0",
     "next": "14.2.5",
     "next-sanity": "^9.12.3",
     "react": "^18",
     "react-dom": "^18",
     "sanity": "^3.99.0",
-    "styled-components": "^6.3.11"
+    "styled-components": "^6.3.11",
+    "yet-another-react-lightbox": "^3.30.1"
   },
   "devDependencies": {
     "@types/node": "^20",
