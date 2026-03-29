@@ -161,3 +161,73 @@ export async function getPartnersByDestination(destinationId: string) {
         { destinationId }
     );
 }
+
+// ---- BLOG POSTS ----
+
+export async function getAllPosts() {
+    return client.fetch(
+        groq`*[_type == "post"] | order(publishedAt desc) {
+      _id,
+      title,
+      "slug": slug.current,
+      mainImage,
+      publishedAt,
+      category,
+      readingTime,
+      isFeatured,
+      introduction,
+      seoTitle,
+      seoDescription
+    }`
+    );
+}
+
+export async function getPostBySlug(slug: string) {
+    return client.fetch(
+        groq`*[_type == "post" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      mainImage,
+      publishedAt,
+      category,
+      readingTime,
+      hasGuide,
+      introduction,
+      youtubeHook,
+      body,
+      curiosities,
+      goldenTips,
+      gallery,
+      finalCta {
+        youtubeText,
+        relatedPdfGuide-> { _id, name, "slug": slug.current, hasGuide }
+      },
+      seoTitle,
+      seoDescription
+    }`,
+        { slug }
+    );
+}
+
+export async function getPostGuideBySlug(slug: string) {
+    return client.fetch(
+        groq`*[_type == "post" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      mainImage,
+      hasGuide,
+      guideIntroduction,
+      guideWhereToGo,
+      guideWhenToGo,
+      guideWhenToGoGoldenTip,
+      guideWhatToDo,
+      guideWhereToStay,
+      guideWhereToStayTip,
+      guidePracticalTips,
+      guideCtaLinks
+    }`,
+        { slug }
+    );
+}

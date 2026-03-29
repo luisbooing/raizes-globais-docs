@@ -40,6 +40,7 @@ export default function Navbar() {
                     <Link href="/destinos" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Destinos</Link>
                     <Link href="/documentarios" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Séries</Link>
                     <Link href="/planeje" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Planeje</Link>
+                    <Link href="/blog" className="text-sm font-medium hover:text-primary-500 transition-colors uppercase tracking-widest text-white/90">Blog</Link>
                 </div>
 
                 {/* Mobile Menu Toggle */}
@@ -59,6 +60,7 @@ export default function Navbar() {
                     <Link href="/destinos" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Destinos</Link>
                     <Link href="/documentarios" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Séries</Link>
                     <Link href="/planeje" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Planeje</Link>
+                    <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary-500 transition-colors uppercase tracking-widest">Blog</Link>
                 </div>
             )}
         </nav>
