@@ -2,6 +2,7 @@
 
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
+import { table } from '@sanity/table';
 import { schemaTypes } from './sanity/schemas';
 import { dataset, projectId } from './sanity/env';
 
@@ -12,6 +13,7 @@ export default defineConfig({
     dataset,
     plugins: [
         structureTool(),
+        table(),
     ],
     schema: {
         types: schemaTypes,
