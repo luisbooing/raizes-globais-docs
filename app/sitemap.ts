@@ -7,6 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch destinations
     const destinations = await client.fetch<string[]>(`*[_type == "destination" && defined(slug.current)].slug.current`);
     const documentaries = await client.fetch<string[]>(`*[_type == "documentary" && defined(slug.current)].slug.current`);
+    const posts = await client.fetch<string[]>(`*[_type == "post" && defined(slug.current)].slug.current`);
 
     const destUrls = destinations.map((slug) => ({
         url: `${baseUrl}/destinos/${slug}`,
@@ -20,6 +21,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
+    }));
+
+    const postUrls = posts.map((slug) => ({
+        url: `${baseUrl}/blog/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7, // Artigos do blog têm uma certa importância no funil
     }));
 
     return [
@@ -42,6 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.9,
         },
         {
+            url: `${baseUrl}/blog`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.9,
+        },
+        {
             url: `${baseUrl}/sobre`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
@@ -55,5 +69,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
         ...destUrls,
         ...docUrls,
+        ...postUrls,
     ];
 }

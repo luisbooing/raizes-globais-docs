@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,6 +17,17 @@ interface PageProps {
 }
 
 export const revalidate = 60; // 1 min
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+  if (!post) {
+    return { title: "Post não encontrado" };
+  }
+  return {
+    title: post.seoTitle || `${post.title} | Raízes Globais Docs`,
+    description: post.seoDescription || "Confira o post completo em Raízes Globais Docs.",
+  };
+}
 
 // Componentes customizados para o PortableText
 const portableTextComponents = {
@@ -120,10 +132,6 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) {
     notFound();
   }
-
-  // Gera o Meta Tag dinâmico
-  const metaTitle = post.seoTitle || `${post.title} | Raízes Globais Docs`;
-  const metaDesc = post.seoDescription || "Confira o post completo no blog Raízes Globais Docs.";
 
   return (
     <div className="flex flex-col min-h-screen">
