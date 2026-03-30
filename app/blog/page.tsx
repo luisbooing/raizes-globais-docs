@@ -48,24 +48,27 @@ export default async function BlogPage({ searchParams }: { searchParams: { categ
         </div>
       </section>
 
-      {/* Categories Filter */}
-      <div className="bg-white border-b border-neutral-200 sticky top-[72px] z-40 shadow-sm">
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4 overflow-x-auto no-scrollbar">
-            <span className="text-sm font-bold text-neutral-400 uppercase tracking-widest shrink-0">Filtre por:</span>
+      {/* Categories Filter (Floating Pill Design) */}
+      <div className="sticky top-[90px] z-40 flex justify-center px-4 mt-6 mb-8 pointer-events-none">
+         <div className="bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-full p-1.5 flex items-center gap-1 max-w-full pointer-events-auto overflow-x-auto no-scrollbar">
             <Link 
               href="/blog" 
-              className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition-all ${
-                !searchParams.category ? "bg-primary text-white" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+              className={`shrink-0 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+                !searchParams.category 
+                  ? "bg-neutral-900 text-white shadow-md scale-100" 
+                  : "bg-transparent text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200/50 hover:scale-105"
               }`}
             >
-              Tudo
+              Explorar Tudo
             </Link>
             {categories.map((cat: any, idx: number) => (
               <Link 
                 key={idx} 
                 href={`/blog?category=${encodeURIComponent(cat)}`} 
-                className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition-all ${
-                  searchParams.category === cat ? "bg-primary text-white" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                className={`shrink-0 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+                  searchParams.category === cat 
+                    ? "bg-neutral-900 text-white shadow-md scale-100" 
+                    : "bg-transparent text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200/50 hover:scale-105"
                 }`}
               >
                 {cat}
@@ -74,7 +77,7 @@ export default async function BlogPage({ searchParams }: { searchParams: { categ
          </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-24">
         
         {/* POST EM DESTAQUE (Banner Horizontal) - Aparece apenas se não estiver filtrando uma categoria específica */}
         {!searchParams.category && featuredPost && (
