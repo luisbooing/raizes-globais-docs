@@ -42,6 +42,16 @@ export const metadata: Metadata = {
     alternates: {
         canonical: '/',
     },
+    icons: {
+        icon: [
+            { url: '/favicon.ico', sizes: 'any' },
+            { url: '/icon.png', type: 'image/png', sizes: '192x192' },
+        ],
+        apple: [
+            { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+        ],
+    },
+    manifest: '/manifest.json',
     openGraph: {
         title: 'Raízes Globais Docs',
         description: 'Documentando as belezas naturais do mundo com poesia e cinema',

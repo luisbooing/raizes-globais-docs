@@ -1,0 +1,21 @@
+{
+    "name": "Raízes Globais Docs",
+    "short_name": "Raízes Globais",
+    "description": "Documentando as belezas naturais do mundo com poesia e cinema",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#0a0a0a",
+    "icons": [
+        {
+            "src": "/icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
